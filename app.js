@@ -18,7 +18,13 @@ const msgBtn = document.getElementById("msg-btn");
 const db = firebase.database();
 const msgRef = db.ref("/msg");
 const id = uuid();
-const name = "guest";
+
+let name = "";
+function init() {
+  name = prompt("Please enter your name");
+  msgRef.on("child_added", updateMsg);
+}
+document.addEventListener("DOMContentLoaded", init);
 
 messageForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -34,14 +40,16 @@ messageForm.addEventListener("submit", (event) => {
   };
   msgRef.push(msg);
   msgInput.value = "";
+
+  return false;
 });
 
 const updateMsg = (data) => {
   const { id: userId, name, text } = data.val();
-  const message = `<li class="msg ${id == userId && "-my"}">
+  const message = `<li class="msg ${id == userId && "my"}">
   <span> <i class="name">${name}: </i>${text} </span>
 </li>`;
   messageScreen.innerHTML += message;
 };
 
-msgRef.on("child_added", updateMsg);
+//msgRef.on("child_added", updateMsg);

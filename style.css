@@ -93,12 +93,12 @@ i {
   font-weight: bold;
 }
 
-.msg-my {
+.my {
   text-align: right;
   list-style-type: none;
 }
 
-.msg-my span {
+.my span {
   background-color: rgb(190, 40, 90);
 }
 .my i {
